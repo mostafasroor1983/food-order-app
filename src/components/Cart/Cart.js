@@ -9,6 +9,7 @@ const Cart = props => {
 
     const cartCtx = useContext(CartContext);
     const cartItemRemoveHandler = (id) => {
+        console.log("id:"+id);
         cartCtx.removeItem(id);
     };
 

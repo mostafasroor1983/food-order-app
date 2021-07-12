@@ -24,8 +24,9 @@ const cartReducer = (state, action) => {
         if (state.items.some(item => {
             return item.id === action.id
         })) {
-            const updatedItems = state.items.filter((item) => item.id !== action.item.id);
-            const updatedTotalAmount = parseFloat(state.totalAmount) - parseFloat(action.item.amount) * parseFloat(action.item.price);
+            const  itemToDelete = state.items.find((item) => item.id === action.id);
+            const updatedTotalAmount = parseFloat(state.totalAmount) - parseFloat(itemToDelete.amount) * parseFloat(itemToDelete.price);
+            const updatedItems = state.items.filter((item) => item.id !== action.id);
             return {items: updatedItems, totalAmount: updatedTotalAmount.toFixed(2)};
         }
 
@@ -41,7 +42,7 @@ const CartProvider = (props) => {
     }
 
     const removeItemFromCartHandler = id => {
-        dispatchCartAction({type: "Delete", id: id});
+        dispatchCartAction({type: "DELETE", id: id});
     }
 
     const cartContext = {
